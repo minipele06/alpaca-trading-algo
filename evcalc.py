@@ -1,4 +1,4 @@
-#Calculate EV/Sales
+#Calculate EV Ratios
 from dotenv import load_dotenv
 import alpaca_trade_api as tradeapi
 import os
@@ -24,4 +24,6 @@ ltd = y['balancesheet'][0]['longTermDebt']
 ev = mc + std + ltd - cash
 r = requests.get(f'https://cloud.iexapis.com/stable/stock/{symbol}/income?period=annual&token={IEXAPI}')
 rev = r.json()['income'][0]['totalRevenue']
-print(ev/rev)
+ebit = r.json()['income'][0]['ebit']
+print(f'EV/Sales: {ev/rev}')
+print(f'EV/EBIT: {ev/ebit}')
